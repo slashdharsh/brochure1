@@ -451,35 +451,32 @@ def _inside_left(c, data):
 
     y = _divider(c, x0+M, y, BODY_W)
 
-    # ── Filler: Clinical Use Notes card ───────────────────────────────────────
+    # ── Clinical Use Notes (drug-specific) ───────────────────────────────────
     c.setFont("Helvetica-Bold", 8)
     c.setFillColor(NAVY)
     c.drawString(x0+M, y, "CLINICAL USE NOTES")
     y -= 14
 
-    notes = [
-        "Monitor renal function before and during therapy.",
-        "Assess eGFR at initiation and periodically thereafter.",
-        "Counsel patients on signs of lactic acidosis.",
-        "Vitamin B12 monitoring recommended annually.",
-        "Avoid use in conditions predisposing to hypoxia.",
-    ]
+    notes = data.get("clinical_notes", [
+        "Monitor patient response at each clinical visit.",
+        "Counsel patients on proper administration and adherence.",
+        "Report any new or worsening symptoms promptly.",
+    ])
     y = _dot_list(c, notes, x0+M, y, BODY_W, font_size=7.5, leading=11)
 
     y = _divider(c, x0+M, y, BODY_W)
 
-    # ── Patient population box ────────────────────────────────────────────────
+    # ── Patient population (drug-specific) ───────────────────────────────────
     c.setFont("Helvetica-Bold", 8)
     c.setFillColor(NAVY)
     c.drawString(x0+M, y, "PATIENT POPULATION")
     y -= 14
 
-    pop_lines = [
+    pop_lines = data.get("patient_pop", [
         ("Adults:",    "18 years and older"),
-        ("Pediatric:", "10–16 years"),
         ("Geriatric:", "Use with caution"),
         ("Pregnancy:", "Consult physician"),
-    ]
+    ])
     _info_card(c, pop_lines, x0+M, y, BODY_W, bg=WHITE)
 
 
@@ -506,35 +503,31 @@ def _inside_centre(c, data):
 
     y = _divider(c, x0+M, y, BODY_W)
 
-    # ── Dosage summary card ────────────────────────────────────────────────────
+    # ── Dosage quick reference (drug-specific) ──────────────────────────────
     c.setFont("Helvetica-Bold", 8)
     c.setFillColor(NAVY)
     c.drawString(x0+M, y, "DOSAGE QUICK REFERENCE")
     y -= 14
 
-    dose_lines = [
-        ("Adults:",      "500 mg twice daily with meals"),
-        ("Max Dose:",    "2550 mg per day"),
-        ("Pediatric:",   "500 mg twice daily (10-16 yrs)"),
-        ("Max Peds:",    "2000 mg per day"),
-        ("Titration:",   "Increase by 500 mg weekly"),
-    ]
+    dose_lines = data.get("dosage_summary", [
+        ("Dosing:", "Per prescribing information"),
+        ("Route:", "Oral"),
+        ("Administration:", "As directed by physician"),
+    ])
     y = _info_card(c, dose_lines, x0+M, y, BODY_W, bg=GREY_BG)
 
     y = _divider(c, x0+M, y, BODY_W)
 
-    # ── Mechanism of action bullets ────────────────────────────────────────────
+    # ── Mechanism of action (drug-specific) ──────────────────────────────────
     c.setFont("Helvetica-Bold", 8)
     c.setFillColor(NAVY)
     c.drawString(x0+M, y, "MECHANISM OF ACTION")
     y -= 14
 
-    moa = [
-        "Decreases hepatic glucose production (gluconeogenesis).",
-        "Reduces intestinal glucose absorption.",
-        "Improves peripheral insulin sensitivity.",
-        "Does not stimulate insulin secretion — low hypoglycemia risk.",
-    ]
+    moa = data.get("moa", [
+        "Modulates physiological pathways to achieve therapeutic effect.",
+        "Refer to full prescribing information for detailed pharmacology.",
+    ])
     _dot_list(c, moa, x0+M, y, BODY_W, font_size=7.5, leading=11)
 
 
@@ -565,35 +558,30 @@ def _inside_right(c, data):
 
     y = _divider(c, x0+M, y, BODY_W)
 
-    # ── Monitoring parameters card ─────────────────────────────────────────────
+    # ── Monitoring parameters (drug-specific) ───────────────────────────────
     c.setFont("Helvetica-Bold", 8)
     c.setFillColor(NAVY)
     c.drawString(x0+M, y, "MONITORING PARAMETERS")
     y -= 14
 
-    monitoring = [
-        "Renal function (eGFR) — before & during therapy",
-        "Vitamin B12 — every 2–3 years",
-        "HbA1c — every 3–6 months",
-        "Fasting blood glucose — regularly",
-        "Signs of lactic acidosis — ongoing",
-    ]
+    monitoring = data.get("monitoring", [
+        "Vital signs — at each clinical visit",
+        "Signs of adverse reactions — ongoing",
+        "Therapeutic response — periodically",
+    ])
     y = _dot_list(c, monitoring, x0+M, y, BODY_W, font_size=7.5, leading=11)
 
     y = _divider(c, x0+M, y, BODY_W)
 
-    # ── Drug interactions ──────────────────────────────────────────────────────
+    # ── Drug interactions (drug-specific) ────────────────────────────────────
     c.setFont("Helvetica-Bold", 8)
     c.setFillColor(NAVY)
     c.drawString(x0+M, y, "NOTABLE DRUG INTERACTIONS")
     y -= 14
 
-    interactions = [
-        ("Iodinated contrast:", "Hold 48 hrs before/after"),
-        ("Alcohol:",            "Increases lactic acidosis risk"),
-        ("Insulin/sulfonylurea:","Monitor for hypoglycemia"),
-        ("Topiramate:",         "Increased metformin levels"),
-    ]
+    interactions = data.get("interactions", [
+        ("Other medications:", "Check for interactions with prescriber"),
+    ])
     _info_card(c, interactions, x0+M, y, BODY_W, bg=AMBER_LIGHT)
 
 
